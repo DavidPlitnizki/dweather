@@ -4,6 +4,7 @@ import Search from './components/Search/Search';
 import { useGeoLocation } from './hooks/geoLocation.hook';
 import { useFetchLocation } from './hooks/fetchLocation.hook';
 import WeatherCard from './components/WeatherCard/WeatherCard';
+import Header from './components/Header/Header';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
   return (
     <div className={styles.app}>
       <div className={styles.wrapper}>
+        <Header />
         <Search searchByCityName={findhByCityName} />
           <WeatherCard {...weatherInfo}/>
       </div>

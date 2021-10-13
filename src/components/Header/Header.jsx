@@ -1,9 +1,10 @@
 import React from 'react';
+import styles from './Header.module.scss';
 
 const Header = () => {
     return (
-        <header>
-            Header
+        <header className={styles.wrapper}>
+            <h1>D - WEATHER</h1>
         </header>
     )
 }

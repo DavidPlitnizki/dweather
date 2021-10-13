@@ -1,0 +1,33 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 3rem;
+    border-bottom: solid 3px #000;
+    background-color: #5e6fcb75;
+    box-shadow: 0 0 20px 5px #fff;
+    animation: flicker 10s infinite;
+
+    & h1 {
+        font-weight: bold;
+        letter-spacing: 1rem;
+        font-size: 2rem;
+    }
+}
+
+
+
+@keyframes flicker {
+    from {
+        box-shadow: 0 0 20px 5px #fff;
+    }
+
+    50% {
+        box-shadow: 0 0 10px 2px #fff;
+    }
+
+    to {
+        box-shadow: 0 0 20px 5px #fff;
+    }
+  }
