@@ -1,0 +1,25 @@
+.wrapper_search {
+    width: 22em;
+    height: 8em;
+}
+
+.form {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+}
+
+.label {
+    display: block;
+}
+
+.search {
+    width: 30em;
+    height: 2em;
+    border-radius: 1em;
+}
+
+.icon {
+    cursor: pointer;
+}
