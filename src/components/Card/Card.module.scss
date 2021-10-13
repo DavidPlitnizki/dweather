@@ -1,0 +1,86 @@
+.wrapper {
+    display: block;
+    position: relative;
+    width: 25em;
+    background-color: #0055ff30;
+    padding: 2em;
+    border-radius: 1em;
+    border: solid #fff 1px;
+    box-sizing: border-box;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    box-shadow: 0px 5px 17px -3px #fff;
+    color: #000000;
+    text-shadow: #0055ff30 2px 2px 0px, #6d6e6d85 4px 4px 0px;
+
+    & .click_area {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        &:hover img.hand {
+            animation: none;
+            transform: translate(-50%, -50%) rotate(25deg);
+        }
+
+        &:hover img.click{
+            animation: click_anim .3s infinite;
+        }
+
+           & img.hand {
+               position: absolute;
+               width: 3.5rem;
+               height: auto;
+               left: 50%;
+               top: 50%;
+               transform: translate(-50%, -50%);
+               animation: rotate_hand 10s infinite;
+           }
+
+           & img.click {
+                position: absolute;
+                width: 4rem;
+                height: auto;
+                left: 59%;
+                top: 23%;
+                transform: translate(-50%, -50%) rotate(10deg);
+                opacity: 0;               
+           }
+
+          
+    }
+
+    & .desription {
+        display: flex;
+        justify-content: center;
+        font-weight: bold;
+    }
+}
+
+
+@keyframes rotate_hand {
+    from {
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(0);
+    }
+
+    50% {
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(25deg);
+    }
+
+    to {
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(0);
+    }
+  }
+
+  @keyframes click_anim {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+  }
