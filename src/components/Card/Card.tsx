@@ -4,13 +4,17 @@ import styles from './Card.module.scss';
 import HandIcon from '../../assets/icon_hand.png';
 import ClickIcon from '../../assets/click_icon.png';
 
-const Card:React.FC<{}> = () => {
+interface IProps {
+    startGetGeo: () => void
+}
+
+const Card:React.FC<IProps> = ({startGetGeo}) => {
 
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} onClick={startGetGeo}>
             <section className={styles.click_area}>
-                <img className={styles.hand} src={HandIcon} />
-                <img className={styles.click} src={ClickIcon} />
+                <img alt="hand_icon" className={styles.hand} src={HandIcon} />
+                <img alt="click_icon" className={styles.click} src={ClickIcon} />
             </section>
             <section className={styles.desription}>
                 <h2>Click to start get weather</h2>

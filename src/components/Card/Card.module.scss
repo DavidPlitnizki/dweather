@@ -18,6 +18,10 @@
         width: 100%;
         height: 100%;
 
+        &:hover {
+            cursor: pointer;
+        }
+
         &:hover img.hand {
             animation: none;
             transform: translate(-50%, -50%) rotate(25deg);
@@ -54,6 +58,10 @@
         display: flex;
         justify-content: center;
         font-weight: bold;
+
+        & h2 {
+            cursor: pointer;
+        }
     }
 }
 

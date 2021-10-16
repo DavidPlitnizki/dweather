@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import styles from  './App.module.scss';
 
 import { useGeoLocation } from './hooks/geoLocation.hook';
@@ -12,13 +12,19 @@ import Card from './components/Card/Card';
 
 function App() {
   const [weatherInfo, setWeatherInfo] = useState({});
-  // const {getGeolocation, currGeoLocation} = useGeoLocation();
+  const {getGeolocation, currGeoLocation} = useGeoLocation();
   const {getFetchLocationByGeoCoordinates, getFetchLocationByCityName} = useFetchLocation();
 
+  const [allowGeo, setAllowGeo] = useState(false);
 
   console.log(weatherInfo);
 
-  // useEffect(()=> {getGeolocation()},[getGeolocation]);
+  useEffect(()=> {
+    if(allowGeo) {
+      const location = getGeolocation();
+      console.log("location: ", location);
+    }
+  });
 
   // useEffect(()=> {
   //   if(currGeoLocation) {
@@ -30,12 +36,23 @@ function App() {
   //   } 
   // },[currGeoLocation, getFetchLocationByGeoCoordinates]);
 
-  const findhByCityName = (cityName: any) => {
-   const result = getFetchLocationByCityName(cityName);
-    result.then(
-      result => setWeatherInfo(result),
-      error => console.log(error)
-    )
+  // const findhByCityName = (cityName: any) => {
+  //  const result = getFetchLocationByCityName(cityName);
+  //   result.then(
+  //     result => setWeatherInfo(result),
+  //     error => console.log(error)
+  //   )
+  // }
+
+  const checkAllowGeolocation = () => {
+    console.log("check geolocation: ", navigator);
+    if ("geolocation" in navigator) {
+      console.log("Available");
+      setAllowGeo(true);
+    } else {
+      console.log("Not Available");
+      setAllowGeo(false);
+    }
   }
   
 
@@ -43,9 +60,9 @@ function App() {
     <div className={styles.app}>
       <div className={styles.wrapper}>
         <Header />
-        <Card />
+        {!allowGeo && <Card startGetGeo={checkAllowGeolocation} />}
         {/* <Search searchByCityName={findhByCityName} /> */}
-        {/* <WeatherCard {...weatherInfo}/> */}
+        {allowGeo && <WeatherCard {...weatherInfo}/>}
       </div>
     </div>
   );
