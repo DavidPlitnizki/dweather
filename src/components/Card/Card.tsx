@@ -1,4 +1,4 @@
-import React,{useEffect, useRef} from 'react';
+import React from 'react';
 import styles from './Card.module.scss';
 
 import HandIcon from '../../assets/icon_hand.png';

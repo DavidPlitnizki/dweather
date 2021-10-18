@@ -1,5 +1,7 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from  './App.module.scss';
+
+import {IWeatherScheme, IWeatherErrorScheme} from './interfaces';
 
 import { useGeoLocation } from './hooks/geoLocation.hook';
 import { useFetchLocation } from './hooks/fetchLocation.hook';
@@ -10,42 +12,65 @@ import Header from './components/Header/Header';
 import Card from './components/Card/Card';
 
 
+
+
 function App() {
-  const [weatherInfo, setWeatherInfo] = useState({});
-  const {getGeolocation, currGeoLocation} = useGeoLocation();
+  const [weatherInfo, setWeatherInfo] = useState<IWeatherScheme | IWeatherErrorScheme>();
+  const {getGeolocation} = useGeoLocation();
   const {getFetchLocationByGeoCoordinates, getFetchLocationByCityName} = useFetchLocation();
 
   const [allowGeo, setAllowGeo] = useState(false);
 
-  console.log(weatherInfo);
-
   useEffect(()=> {
     if(allowGeo) {
-      const location = getGeolocation();
-      console.log("location: ", location);
+      console.log("getCurrentLocation")
+      getGeolocation(successGetLocation, errorGetLocation);
     }
-  });
+  },[allowGeo]);
 
-  // useEffect(()=> {
-  //   if(currGeoLocation) {
-  //      const result = getFetchLocationByGeoCoordinates(currGeoLocation.coords);
-  //       result.then(
-  //         result => setWeatherInfo(result),
-  //         error => console.log(error)
-  //       )
-  //   } 
-  // },[currGeoLocation, getFetchLocationByGeoCoordinates]);
+  const successGetLocation = (pos: any) => {
+    console.log("successGetLocation: ", pos);
+    const position = {
+      errorCode: 0,
+      coordinats: pos.coords,
+      timestamp: pos.timestamp
+    }
+    setWeatherInfo(position);
+  }
 
-  // const findhByCityName = (cityName: any) => {
-  //  const result = getFetchLocationByCityName(cityName);
-  //   result.then(
-  //     result => setWeatherInfo(result),
-  //     error => console.log(error)
-  //   )
-  // }
+  const errorGetLocation = (err:any) => {
+    console.log("error: ", err);
+    const error = {
+      errorCode: err.code,
+      description: err.message,
+    }
+    setWeatherInfo(error)
+
+   
+  }
+
+  useEffect(()=> {
+
+    if(allowGeo && weatherInfo?.errorCode === 0) {
+      console.log("allowed user and get location: ",weatherInfo.coordinats)
+      const result = getFetchLocationByGeoCoordinates({latitude: weatherInfo.coordinats?.latitude, longitude: weatherInfo.coordinats?.longitude});
+        
+      result.then(
+              result => setWeatherInfo(result),
+              error => console.log(error)
+            )
+    }
+  },[weatherInfo, allowGeo, getFetchLocationByGeoCoordinates]);
+
+  const findhByCityName = (cityName: any) => {
+   const result = getFetchLocationByCityName(cityName);
+    result.then(
+      result => setWeatherInfo(result),
+      error => console.log(error)
+    )
+  }
 
   const checkAllowGeolocation = () => {
-    console.log("check geolocation: ", navigator);
     if ("geolocation" in navigator) {
       console.log("Available");
       setAllowGeo(true);
@@ -61,8 +86,9 @@ function App() {
       <div className={styles.wrapper}>
         <Header />
         {!allowGeo && <Card startGetGeo={checkAllowGeolocation} />}
-        {/* <Search searchByCityName={findhByCityName} /> */}
-        {allowGeo && <WeatherCard {...weatherInfo}/>}
+        {allowGeo && <Search searchByCityName={findhByCityName} />}
+        {allowGeo &&   <WeatherCard {...weatherInfo}/>}
+        
       </div>
     </div>
   );
