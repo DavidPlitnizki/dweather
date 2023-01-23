@@ -45,12 +45,9 @@ function App() {
       description: err.message,
     }
     setWeatherInfo(error)
-
-   
   }
 
   useEffect(()=> {
-
     if(allowGeo && weatherInfo?.errorCode === 0) {
       console.log("allowed user and get location: ",weatherInfo.coordinats)
       const result = getFetchLocationByGeoCoordinates({latitude: weatherInfo.coordinats?.latitude, longitude: weatherInfo.coordinats?.longitude});
@@ -87,7 +84,7 @@ function App() {
         <Header />
         {!allowGeo && <Card startGetGeo={checkAllowGeolocation} />}
         {allowGeo && <Search searchByCityName={findhByCityName} />}
-        {allowGeo &&   <WeatherCard {...weatherInfo}/>}
+        {allowGeo && <WeatherCard {...weatherInfo}/>}
         
       </div>
     </div>

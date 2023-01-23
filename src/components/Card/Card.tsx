@@ -17,7 +17,7 @@ const Card:React.FC<IProps> = ({startGetGeo}) => {
                 <img alt="click_icon" className={styles.click} src={ClickIcon} />
             </section>
             <section className={styles.desription}>
-                <h2>Click to start get weather</h2>
+                <h2>Explore Weather</h2>
             </section>
             
         </div>

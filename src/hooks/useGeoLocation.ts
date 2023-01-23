@@ -1,18 +1,17 @@
-import {useCallback} from 'react';
+
+const OPTIONS = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
 
 export const useGeoLocation = () => {
 
-    const options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
-    };
-
-    const getGeolocation = useCallback((successGetLocation, errorGetLocation) => {
-        if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(successGetLocation, errorGetLocation, options);
+    const getGeolocation = (successGetLocation: any, errorGetLocation: any) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(successGetLocation, errorGetLocation, OPTIONS);
       }
-    },[options]);
+    };
 
     return {getGeolocation};
 }
