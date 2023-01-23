@@ -19,3 +19,14 @@ export interface IWeatherScheme {
     description: string,
     coordinats?: ICoordsScheme
   }
+
+  export interface IWeatherObject {
+    description: string,
+    feelsLike: number,
+    icon: string,
+    id: number,
+    main: string,
+    name: string,
+    sysCountry: string,
+    temp: number,
+  }

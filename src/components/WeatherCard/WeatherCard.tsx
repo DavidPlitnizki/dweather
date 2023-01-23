@@ -1,25 +1,31 @@
 import React from 'react';
 import styles from './WeatherCard.module.scss';
 
+import {IWeatherObject} from '../../interfaces';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 const tempImg = require("../../assets/temp.svg") as string;
 
-const WeatherCard:React.FC<any> = (props) => {
 
-    console.log(props)
+interface IProps {
+    weatherData: IWeatherObject
+};
 
-    const weather = props?.weather?.filter((item: boolean) => item)[0];
+const WeatherCard:React.FC<IProps> = ({weatherData}) => {
 
     const addToFavorite = () => {
         console.log("add to favorite")
     }
 
+    if (!weatherData) {
+        return null;
+    }
+
     return (
         <>
-            { (props && props.id) ? <div className={styles.wrapper}>
+        <div className={styles.wrapper}>
             <div className={styles.wrapper_location_name}>
-                <p>{`${props.name},${props?.sys?.country || "-"}`}</p>
+                <p>{`${weatherData?.name},${weatherData?.sysCountry || "-"}`}</p>
                 {/* <Fab color="primary" aria-label="add" onClick={addToFavorite}>
                     <AddIcon />
                 </Fab> */}
@@ -27,18 +33,18 @@ const WeatherCard:React.FC<any> = (props) => {
             <div className={styles.info_block}>
                 <p>Temperature: </p>
                 <div className={styles.info_values}>
-                    <span>{props?.main?.temp}&#8451;<img className={styles.temp_img} src={tempImg} alt="temperature" /></span>
-                    <span>feels like: {props?.main?.feels_like}&#8451;<img className={styles.temp_img} src={tempImg} alt="temperature" /></span>
+                    <span>{weatherData?.temp}&#8451;<img className={styles.temp_img} src={tempImg} alt="temperature" /></span>
+                    <span>feels like: {weatherData?.feelsLike}&#8451;<img className={styles.temp_img} src={tempImg} alt="temperature" /></span>
                 </div>
             </div>
             <div className={styles.info_block}>
                 <p>Weather:</p>
                 <div className={styles.info_values}>
-                    <span>{weather?.description}</span>
-                    <span><img alt="weather" src={`http://openweathermap.org/img/w/${weather?.icon}.png`} /></span>
+                    <span>{weatherData?.description}</span>
+                    <span><img alt="weather" src={`http://openweathermap.org/img/w/${weatherData?.icon}.png`} /></span>
                 </div>
             </div>
-        </div> : "" }
+        </div> 
     </>
     )
 }

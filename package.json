@@ -15,6 +15,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-scripts": "3.4.3",
+    "react-toastify": "^8.2.0",
     "typescript": "~3.7.7"
   },
   "scripts": {
@@ -24,7 +25,13 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "eslint:recommended",
+    "rules": {
+      "indent": [
+        "error",
+        4
+      ]
+    }
   },
   "browserslist": {
     "production": [
