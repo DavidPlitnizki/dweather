@@ -14,7 +14,7 @@ export const useFetchLocation = () => {
         }
     },[])
 
-    const getFetchLocationByCityName = useCallback(async (cityName) => {
+    const getFetchLocationByCityName = useCallback(async (cityName: string) => {
         const result = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${env.appid}&units=metric`);
         if(result.ok) {
             const data = await result.json();
