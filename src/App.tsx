@@ -3,8 +3,8 @@ import styles from  './App.module.scss';
 
 import {IWeatherScheme, IWeatherErrorScheme} from './interfaces';
 
-import { useGeoLocation } from './hooks/geoLocation.hook';
-import { useFetchLocation } from './hooks/fetchLocation.hook';
+import { useGeoLocation } from './hooks/useGeoLocation';
+import { useFetchLocation } from './hooks/useFetchLocation';
 
 import Search from './components/Search/Search';
 import WeatherCard from './components/WeatherCard/WeatherCard';
