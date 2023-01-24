@@ -6,20 +6,17 @@ export interface Coordinates {latitude: number | undefined, longitude: number | 
 const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather';
 
 export const useFetchLocation = () => {
-    const [isErrorMSG, setIsErrorMSG] = useState<String>('');
     const [isLoading, setIsLoading] = useState<Boolean>(false);
 
     const getFetchLocationByGeoCoordinates = async (coords: Coordinates) => {
         const result = await fetch(`${BASE_URL}?lat=${coords.latitude}&lon=${coords.longitude}&appid=${env.appid}&units=metric`);
         setIsLoading(true);
-        setIsErrorMSG('');
         if(result.ok) {
             const data = await result.json();
             setIsLoading(false);
             return data;
         } else {
             setIsLoading(false);
-            setIsErrorMSG(result?.statusText);
         }
     };
 
@@ -28,7 +25,6 @@ export const useFetchLocation = () => {
             setIsLoading(true);
             const result = await fetch(`${BASE_URL}?q=${cityName}&appid=${env.appid}&units=metric`);
             if (result?.ok) {
-                setIsErrorMSG('');
                 const data = await result.json();
                 return data;
             }

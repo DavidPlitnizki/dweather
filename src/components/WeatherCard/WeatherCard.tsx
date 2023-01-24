@@ -2,8 +2,6 @@ import React from 'react';
 import styles from './WeatherCard.module.scss';
 
 import {IWeatherObject} from '../../interfaces';
-import AddIcon from '@material-ui/icons/Add';
-import Fab from '@material-ui/core/Fab';
 const tempImg = require("../../assets/temp.svg") as string;
 
 
@@ -12,10 +10,6 @@ interface IProps {
 };
 
 const WeatherCard:React.FC<IProps> = ({weatherData}) => {
-
-    const addToFavorite = () => {
-        console.log("add to favorite")
-    }
 
     if (!weatherData) {
         return null;
@@ -26,9 +20,6 @@ const WeatherCard:React.FC<IProps> = ({weatherData}) => {
         <div className={styles.wrapper}>
             <div className={styles.wrapper_location_name}>
                 <p>{`${weatherData?.name},${weatherData?.sysCountry || "-"}`}</p>
-                {/* <Fab color="primary" aria-label="add" onClick={addToFavorite}>
-                    <AddIcon />
-                </Fab> */}
             </div>
             <div className={styles.info_block}>
                 <p>Temperature: </p>
