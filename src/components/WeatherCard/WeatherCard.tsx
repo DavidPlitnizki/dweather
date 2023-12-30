@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './WeatherCard.module.scss';
 
 import {IWeatherObject} from '../../interfaces';
-const tempImg = require("../../assets/temp.svg") as string;
+import tempImg from '../../assets/temp.svg';
 
 
 interface IProps {
