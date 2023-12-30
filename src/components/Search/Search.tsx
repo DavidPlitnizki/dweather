@@ -1,7 +1,7 @@
 import React,{useState, useEffect, useCallback} from 'react';
 import styles from './Search.module.scss'; 
-import { FormControl, InputLabel, Input, FormHelperText  } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { FormControl, InputLabel, Input, FormHelperText  } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface Props {
     searchByCityName: (cityName: string)=> void
