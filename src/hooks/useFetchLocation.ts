@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import env from '../config.json';
 import { toast } from 'react-toastify';
 export interface Coordinates {latitude: number | undefined, longitude: number | undefined};
 
-const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather';
+const BASE_URL = import.meta.env.VITE_API_URL;
+const APP_ID = import.meta.env.VITE_APPID;
 
 export const useFetchLocation = () => {
-    const [isLoading, setIsLoading] = useState<Boolean>(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const getFetchLocationByGeoCoordinates = async (coords: Coordinates) => {
-        const result = await fetch(`${BASE_URL}?lat=${coords.latitude}&lon=${coords.longitude}&appid=${env.appid}&units=metric`);
+        const result = await fetch(`${BASE_URL}?lat=${coords.latitude}&lon=${coords.longitude}&appid=${APP_ID}&units=metric`);
         setIsLoading(true);
         if(result.ok) {
             const data = await result.json();
@@ -23,13 +23,14 @@ export const useFetchLocation = () => {
     const getFetchLocationByCityName = async (cityName: string) => {
         try {
             setIsLoading(true);
-            const result = await fetch(`${BASE_URL}?q=${cityName}&appid=${env.appid}&units=metric`);
+            const result = await fetch(`${BASE_URL}?q=${cityName}&appid=${APP_ID}&units=metric`);
             if (result?.ok) {
                 const data = await result.json();
                 return data;
             }
             throw new Error();
-        }catch(e) {
+        }catch(e: unknown) {
+            console.error(e);
             toast(`ERROR!!! Something was wrong, please try again`, {
                 type: "error",
                 position: "top-center",
